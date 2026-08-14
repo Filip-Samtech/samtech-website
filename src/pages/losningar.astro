@@ -49,7 +49,7 @@ const meetingRooms = [
         <p class="text-lg text-gray-600 max-w-2xl mx-auto">Vi bygger mötesrum där tekniken är osynlig tills ni behöver den. Välj den storlek som passar ert kontor, så skräddarsyr vi upplevelsen.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
         {meetingRooms.map((room) => (
           <div class={`bg-white rounded-3xl p-8 shadow-sm border flex flex-col h-full hover:shadow-xl transition-all duration-300 ${room.highlight ? 'border-sam-cyan shadow-sam-cyan/10' : 'border-gray-100'}`}>
             <div class="flex items-center gap-4 mb-6">
@@ -63,14 +63,55 @@ const meetingRooms = [
                 <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">{room.capacity}</p>
               </div>
             </div>
-            <p class="text-gray-600 leading-relaxed mb-8 flex-grow">
+            <p class="text-gray-600 leading-relaxed mb-4 flex-grow">
               {room.description}
             </p>
-            <a href="/kontakta-oss" class="inline-block text-center bg-sam-blue text-white font-semibold py-3 px-6 rounded-full hover:bg-sam-cyan transition-colors mt-auto">
-              Skicka förfrågan
-            </a>
           </div>
         ))}
+      </div>
+
+      <div class="bg-white rounded-3xl p-10 border border-gray-100 shadow-2xl max-w-3xl mx-auto mb-20">
+        <div class="text-center mb-8">
+          <h3 class="text-3xl font-bold text-sam-blue mb-2">Få ett prisförslag</h3>
+          <p class="text-gray-600">Berätta vilken lösning ni är intresserade av så återkommer vi snabbt till er.</p>
+        </div>
+
+        <form action="https://formspree.io/f/maewbjpy" method="POST" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block text-sm font-semibold text-sam-blue mb-2">Namn / Företag *</label>
+              <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-semibold text-sam-blue mb-2">E-postadress *</label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" />
+            </div>
+          </div>
+          
+          <div>
+            <label for="solution" class="block text-sm font-semibold text-sam-blue mb-2">Vad är ni intresserade av? *</label>
+            <select id="solution" name="solution" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium appearance-none cursor-pointer">
+              <option value="" disabled selected>Välj en lösning i listan...</option>
+              <option value="Huddle Room (1-4 pers)">Huddle Room (1-4 personer)</option>
+              <option value="Mellanrum (6-8 pers)">Mellanrum (6-8 personer)</option>
+              <option value="Stort Rum (8-12 pers)">Stort Rum (8-12 personer)</option>
+              <option value="XL / Styrelserum">XL / Styrelserum (12+ personer)</option>
+              <option value="Kontor & Offentliga Miljöer">Kontor & Offentliga Miljöer</option>
+              <option value="Flera lösningar / Vet ej">Flera lösningar / Vill gärna ha rådgivning</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-sm font-semibold text-sam-blue mb-2">Övriga önskemål (Frivilligt)</label>
+            <textarea id="message" name="message" rows="3" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium resize-none" placeholder="T.ex. intresse av akustikpaneler, särskilda skärmstorlekar etc."></textarea>
+          </div>
+
+          <div class="flex justify-center pt-4">
+            <button type="submit" class="bg-sam-cyan text-white font-bold py-4 px-12 rounded-full hover:bg-sam-blue transition-colors shadow-md focus:outline-none w-full md:w-auto cursor-pointer">
+              Skicka förfrågan
+            </button>
+          </div>
+        </form>
       </div>
 
       <div class="bg-sam-blue rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-10">
@@ -107,9 +148,6 @@ const meetingRooms = [
           <p class="text-gray-600 mb-6 leading-relaxed">
             Skapa en levande och välkomnande stämning på hela kontoret. Vi installerar diskreta högtalarsystem för jämnt fördelad bakgrundsmusik, och strategiskt placerade informationsskärmar (Digital Signage) för att hålla medarbetare och besökare uppdaterade.
           </p>
-          <a href="/kontakta-oss" class="font-bold text-sam-cyan hover:text-sam-blue transition-colors flex items-center gap-2">
-            Skicka förfrågan <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-          </a>
         </div>
 
         <div class="group">
@@ -121,9 +159,6 @@ const meetingRooms = [
           <p class="text-gray-600 mb-6 leading-relaxed">
             Rätt ljud och bild är ofta helt avgörande för gästernas upplevelse. Vi har lång och gedigen erfarenhet av att designa och installera robusta AV-system i barer, restauranger och lounger – byggda för att leverera perfekt kvalitet dygnet runt.
           </p>
-          <a href="/kontakta-oss" class="font-bold text-sam-cyan hover:text-sam-blue transition-colors flex items-center gap-2">
-            Skicka förfrågan <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
-          </a>
         </div>
 
       </div>

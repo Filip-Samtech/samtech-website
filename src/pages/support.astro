@@ -43,37 +43,43 @@ import Layout from '../layouts/Layout.astro';
         </button>
       </div>
 
-      <form id="support-form" class="space-y-6">
+      <form action="https://formspree.io/f/mkjwzbppgit" method="POST" enctype="multipart/form-data" class="space-y-6">
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label for="company" class="block text-sm font-semibold text-sam-blue mb-2">Företagsnamn *</label>
-            <input type="text" id="company" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="T.ex. Företag AB" />
+            <input type="text" id="company" name="Företag" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="T.ex. Företag AB" />
           </div>
           <div>
             <label for="contact" class="block text-sm font-semibold text-sam-blue mb-2">Kontaktperson *</label>
-            <input type="text" id="contact" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="För- och efternamn" />
+            <input type="text" id="contact" name="Kontaktperson" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="För- och efternamn" />
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label for="email" class="block text-sm font-semibold text-sam-blue mb-2">E-postadress *</label>
-            <input type="email" id="email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="namn@foretag.se" />
+            <input type="email" id="email" name="E-post" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="namn@foretag.se" />
           </div>
           <div>
             <label for="phone" class="block text-sm font-semibold text-sam-blue mb-2">Telefonnummer</label>
-            <input type="tel" id="phone" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="070-000 00 00" />
+            <input type="tel" id="phone" name="Telefon" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="070-000 00 00" />
           </div>
         </div>
 
         <div>
           <label for="location" class="block text-sm font-semibold text-sam-blue mb-2">Mötesrum / Plats *</label>
-          <input type="text" id="location" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="T.ex. Konferensrum Stockholm (Plan 2)" />
+          <input type="text" id="location" name="Plats" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium" placeholder="T.ex. Konferensrum Stockholm (Plan 2)" />
         </div>
 
         <div>
           <label for="description" class="block text-sm font-semibold text-sam-blue mb-2">Beskrivning av felet *</label>
-          <textarea id="description" rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium resize-none" placeholder="Beskriv problemet så detaljerat som möjligt (t.ex. 'Ljudet klipper', 'Huvudskärmen startar ej')..."></textarea>
+          <textarea id="description" name="Beskrivning" rows="5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-sam-blue focus:outline-none focus:border-sam-cyan focus:ring-2 focus:ring-sam-cyan/20 transition-all font-medium resize-none" placeholder="Beskriv problemet så detaljerat som möjligt (t.ex. 'Ljudet klipper', 'Huvudskärmen startar ej')..."></textarea>
+        </div>
+
+        <div>
+          <label for="attachment" class="block text-sm font-semibold text-sam-blue mb-2">Bifoga bilder eller video (Frivilligt)</label>
+          <input type="file" id="attachment" name="Bifogad_Fil" accept="image/*,video/*" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-2xl text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-sam-blue file:text-white hover:file:bg-sam-cyan transition-all cursor-pointer" multiple />
         </div>
 
         <div class="flex justify-end pt-4">
@@ -118,7 +124,6 @@ import Layout from '../layouts/Layout.astro';
   const openBtn = document.getElementById('open-form-btn');
   const closeBtn = document.getElementById('close-form-btn');
   const formContainer = document.getElementById('support-form-container');
-  const form = document.getElementById('support-form');
 
   // Öppna och stäng logik
   if (openBtn && closeBtn && formContainer) {
@@ -129,38 +134,6 @@ import Layout from '../layouts/Layout.astro';
 
     closeBtn.addEventListener('click', () => {
       formContainer.classList.add('hidden');
-    });
-  }
-
-  // Automatiskt sammanställ mejlet vid klick på Skicka
-  if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const company = document.getElementById('company').value;
-      const contact = document.getElementById('contact').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const location = document.getElementById('location').value;
-      const description = document.getElementById('description').value;
-
-      const subject = encodeURIComponent(`Felanmälan: ${company} - ${location}`);
-      const body = encodeURIComponent(
-        `FELANMÄLAN - SAMTECH AB\n` +
-        `=================================\n\n` +
-        `Företag: ${company}\n` +
-        `Kontaktperson: ${contact}\n` +
-        `E-post: ${email}\n` +
-        `Telefon: ${phone || 'Ej angivet'}\n` +
-        `Plats/Mötesrum: ${location}\n\n` +
-        `Beskrivning av problem:\n` +
-        `${description}\n\n` +
-        `=================================\n` +
-        `Skickat via supportformuläret på hemsidan.`
-      );
-
-      // Öppnar användarens lokala mejlprogram med all info förifyllt
-      window.location.href = `mailto:support@sam-tech.se?subject=${subject}&body=${body}`;
     });
   }
 </script>
