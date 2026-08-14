@@ -1,0 +1,132 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const meetingRooms = [
+  {
+    title: "Huddle Room",
+    capacity: "1-4 personer",
+    description: "Perfekt för snabba avstämningar och spontana videomöten. En intim och effektiv yta där tekniken bara fungerar från sekunden ni kliver in.",
+    icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+  },
+  {
+    title: "Mellanrum",
+    capacity: "6-8 personer",
+    description: "Den moderna arbetsplatsens hjärta. Här skapar vi en sömlös upplevelse för både fysiska och digitala deltagare med kristallklart ljud och knivskarp bild.",
+    icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+  },
+  {
+    title: "Stort Rum",
+    capacity: "8-12 personer",
+    description: "För de viktiga besluten och större presentationerna. Vi säkerställer att alla i rummet syns och hörs perfekt, med teknik som imponerar och förenklar.",
+    icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+  },
+  {
+    title: "XL / Styrelserum",
+    capacity: "12+ personer",
+    description: "Stora rum kräver stora visioner. Våra XL-lösningar är helt modulära och skräddarsys exakt efter era behov. Från avancerade mick-system till multi-skärmslösningar – möjligheterna är oändliga.",
+    icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+    highlight: true
+  }
+];
+---
+
+<Layout>
+  <header class="bg-sam-blue text-white py-24 px-4 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center"></div>
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight">Våra <span class="text-sam-cyan">Lösningar</span></h1>
+      <p class="text-xl text-gray-300 font-medium">
+        Från det lilla snabba mötet till den stora konferensen och hela kontorets atmosfär. Vi designar och installerar teknik som lyfter er verksamhet.
+      </p>
+    </div>
+  </header>
+
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-sam-blue mb-4">Mötesrum för alla behov</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Vi bygger mötesrum där tekniken är osynlig tills ni behöver den. Välj den storlek som passar ert kontor, så skräddarsyr vi upplevelsen.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        {meetingRooms.map((room) => (
+          <div class={`bg-white rounded-3xl p-8 shadow-sm border flex flex-col h-full hover:shadow-xl transition-all duration-300 ${room.highlight ? 'border-sam-cyan shadow-sam-cyan/10' : 'border-gray-100'}`}>
+            <div class="flex items-center gap-4 mb-6">
+              <div class="bg-sam-blue/5 p-4 rounded-2xl text-sam-cyan">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={room.icon} />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-sam-blue">{room.title}</h3>
+                <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider">{room.capacity}</p>
+              </div>
+            </div>
+            <p class="text-gray-600 leading-relaxed mb-8 flex-grow">
+              {room.description}
+            </p>
+            <a href="/kontakta-oss" class="inline-block text-center bg-sam-blue text-white font-semibold py-3 px-6 rounded-full hover:bg-sam-cyan transition-colors mt-auto">
+              Skicka förfrågan
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-sam-blue rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-10">
+        <div class="absolute -right-20 -top-20 opacity-10">
+          <svg width="300" height="300" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2zm0 4l7 14H5l7-14z"/></svg>
+        </div>
+        <div class="flex-1 relative z-10">
+          <h3 class="text-3xl font-bold mb-4 text-sam-cyan">Mer än bara teknik</h3>
+          <p class="text-gray-300 text-lg leading-relaxed">
+            Vi installerar inte bara utrustning – vi bygger rummets känsla. Som ett frivilligt tillval erbjuder vi helhetslösningar för interiören. Vill ni ha eleganta, ljudisolerande träpaneler (akustikpaneler) eller skräddarsydda skåp och möbler som snyggt döljer all teknik? Vi löser det, så att rummet blir lika vackert som det är funktionellt.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-sam-blue mb-4">Kontor & Offentliga Miljöer</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Vår expertis sträcker sig långt utanför konferensrummet. Vi hjälper er att skapa rätt atmosfär och sprida rätt information i alla typer av miljöer.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        
+        <div class="group">
+          <div class="aspect-video bg-gray-100 rounded-3xl mb-6 overflow-hidden relative">
+            <div class="absolute inset-0 bg-sam-blue/10 group-hover:bg-transparent transition-colors z-10"></div>
+            <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=800&q=80" alt="Kontorsmiljö" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          </div>
+          <h3 class="text-2xl font-bold text-sam-blue mb-3">Bakgrundsmusik & Digital Signage</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Skapa en levande och välkomnande stämning på hela kontoret. Vi installerar diskreta högtalarsystem för jämnt fördelad bakgrundsmusik, och strategiskt placerade informationsskärmar (Digital Signage) för att hålla medarbetare och besökare uppdaterade.
+          </p>
+          <a href="/kontakta-oss" class="font-bold text-sam-cyan hover:text-sam-blue transition-colors flex items-center gap-2">
+            Skicka förfrågan <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+          </a>
+        </div>
+
+        <div class="group">
+          <div class="aspect-video bg-gray-100 rounded-3xl mb-6 overflow-hidden relative">
+            <div class="absolute inset-0 bg-sam-blue/10 group-hover:bg-transparent transition-colors z-10"></div>
+             <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Bar och Restaurang" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          </div>
+          <h3 class="text-2xl font-bold text-sam-blue mb-3">Bar, Restaurang & Nöje</h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            Rätt ljud och bild är ofta helt avgörande för gästernas upplevelse. Vi har lång och gedigen erfarenhet av att designa och installera robusta AV-system i barer, restauranger och lounger – byggda för att leverera perfekt kvalitet dygnet runt.
+          </p>
+          <a href="/kontakta-oss" class="font-bold text-sam-cyan hover:text-sam-blue transition-colors flex items-center gap-2">
+            Skicka förfrågan <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</Layout>
