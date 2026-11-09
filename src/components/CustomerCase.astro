@@ -1,0 +1,128 @@
+---
+import type { CustomerCase } from '../data/customerCases';
+
+interface Props {
+  project: CustomerCase;
+  index: number;
+  nextProject?: CustomerCase;
+}
+
+const { project, index, nextProject } = Astro.props;
+const imageBase = `/kundcase/${project.slug}`;
+const storyId = `${project.slug}-om-projektet`;
+---
+
+<article id={project.slug} class="customer-case" aria-labelledby={`${project.slug}-title`}>
+  <header class="case-hero">
+    <img
+      class="case-image"
+      src={`${imageBase}-1717.webp`}
+      srcset={`${imageBase}-720.webp 720w, ${imageBase}-1280.webp 1280w, ${imageBase}-1717.webp 1717w`}
+      sizes="100vw"
+      width="1717"
+      height="916"
+      alt={project.imageAlt}
+      loading={index === 0 ? 'eager' : 'lazy'}
+      fetchpriority={index === 0 ? 'high' : 'auto'}
+      decoding="async"
+    />
+    <div class="case-shade" aria-hidden="true"></div>
+
+    <div class="case-hero-content">
+      <div>
+        <p class="case-kicker"><span class="case-number">{String(index + 1).padStart(2, '0')}</span> Kundcase <span aria-hidden="true">/</span> {project.category}</p>
+        <h2 id={`${project.slug}-title`}>{project.name}</h2>
+        <p class="case-location">{project.location}</p>
+      </div>
+      <a class="case-read" href={`#${storyId}`}>
+        Om projektet
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" /></svg>
+      </a>
+    </div>
+  </header>
+
+  <div id={storyId} class="case-story">
+    <aside class="case-facts" aria-label={`Om ${project.name} och vår leverans`}>
+      <a class:list={['case-logo', { 'case-logo-dark': project.darkLogoBackground }]} href={project.website} aria-label={`Besök webbplatsen för ${project.name}`}>
+        <img src={project.logo} width={project.logoWidth} height={project.logoHeight} alt={project.name} loading="lazy" decoding="async" />
+      </a>
+      <dl>
+        <div><dt>Verksamhet</dt><dd>{project.category}</dd></div>
+        <div><dt>Plats</dt><dd>{project.location}</dd></div>
+        <div>
+          <dt>Vår leverans</dt>
+          <dd><ul>{project.delivery.map((item) => <li>{item}</li>)}</ul></dd>
+        </div>
+      </dl>
+    </aside>
+
+    <div class="case-copy">
+      <p class="case-eyebrow">{project.eyebrow}</p>
+      <h3>{project.heading}</h3>
+      <p class="case-introduction">{project.introduction}</p>
+      <div class="case-paragraphs">
+        {project.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+      {nextProject && (
+        <a class="case-next" href={`#${nextProject.slug}`}>
+          <span><span class="case-next-label">Nästa kundcase</span><span class="case-next-name">{nextProject.name}</span></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" /></svg>
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .customer-case { scroll-margin-top: 6rem; }
+  .case-hero { position: relative; display: flex; align-items: end; isolation: isolate; overflow: hidden; height: clamp(30rem, calc(100svh - 6rem), 58rem); background: var(--color-sam-blue); color: white; }
+  .case-image, .case-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .case-image { z-index: -2; object-fit: cover; }
+  .case-shade { z-index: -1; background: linear-gradient(0deg, rgb(9 16 29 / 88%), rgb(9 16 29 / 40%) 26%, transparent 65%), linear-gradient(90deg, rgb(9 16 29 / 18%), transparent 70%); }
+  .case-hero-content { display: flex; align-items: end; justify-content: space-between; gap: 2rem; width: min(100%, 80rem); margin-inline: auto; padding: clamp(2rem, 5vw, 4.5rem) 2rem; }
+  .case-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+  .case-number { color: var(--color-sam-cyan); }
+  .case-kicker > span[aria-hidden] { color: rgb(255 255 255 / 45%); }
+  h2 { margin-block: 1rem .7rem; font-size: clamp(3rem, 6.6vw, 6.5rem); font-weight: 650; letter-spacing: -.045em; line-height: 1.04; text-wrap: balance; }
+  .case-location { color: rgb(255 255 255 / 85%); font-size: 1rem; }
+  .case-read { display: inline-flex; align-items: center; gap: 1.25rem; flex-shrink: 0; padding-block: .8rem; border-bottom: 1px solid rgb(255 255 255 / 45%); font-size: .85rem; font-weight: 500; transition: color .2s, border-color .2s; }
+  .case-read:hover { color: var(--color-sam-cyan); border-color: var(--color-sam-cyan); }
+  .case-read svg, .case-next svg { width: 1.4rem; height: 1.4rem; flex-shrink: 0; }
+  .case-story { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: clamp(3rem, 8vw, 8rem); width: min(100%, 80rem); margin-inline: auto; padding: clamp(4rem, 7vw, 7rem) 2rem; scroll-margin-top: 8rem; }
+  .case-logo { display: flex; justify-content: center; align-items: center; width: 100%; height: 10rem; margin-bottom: 2.5rem; border: 1px solid #e7e9ec; border-radius: .25rem; background: white; }
+  .case-logo-dark { background: var(--color-sam-blue); border-color: var(--color-sam-blue); }
+  .case-logo img { width: 10rem; height: 7rem; object-fit: contain; }
+  .case-facts dl { display: grid; gap: 1.5rem; }
+  .case-facts dt { margin-bottom: .5rem; color: #687080; font-size: .65rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .case-facts dd { font-size: .9rem; line-height: 1.8; }
+  .case-eyebrow { margin-bottom: 1rem; color: #00748f; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  h3 { max-width: 43rem; font-size: clamp(2rem, 3.4vw, 3.25rem); font-weight: 600; letter-spacing: -.035em; line-height: 1.14; text-wrap: balance; }
+  .case-introduction { max-width: 42rem; margin-block: 1.75rem 2rem; color: #354052; font-size: clamp(1.15rem, 1.7vw, 1.4rem); line-height: 1.6; }
+  .case-paragraphs { display: grid; gap: 1.25rem; max-width: 41rem; color: #536071; font-size: 1rem; line-height: 1.85; }
+  .case-next { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e0e5eb; transition: color .2s; }
+  .case-next:hover { color: #00748f; }
+  .case-next-label { display: block; margin-bottom: .4rem; color: #687080; font-size: .65rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+  .case-next-name { display: block; font-size: 1.2rem; font-weight: 600; letter-spacing: -.02em; }
+  .case-next svg { color: #00748f; }
+  a:focus-visible { outline: 3px solid var(--color-sam-cyan); outline-offset: 6px; }
+  @media (max-width: 767px) {
+    .case-story { grid-template-columns: 1fr; gap: 3rem; }
+    .case-facts { order: 2; padding-top: 2rem; border-top: 1px solid #e0e5eb; }
+    .case-logo { width: 12rem; height: 8rem; margin-bottom: 2rem; }
+    .case-logo img { width: 9rem; height: 6rem; }
+    .case-facts dl { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; }
+    .case-facts dl > div:last-child { grid-column: 1 / -1; }
+    .case-facts ul { display: flex; flex-wrap: wrap; column-gap: 1.25rem; }
+  }
+  @media (max-width: 639px) {
+    .case-hero { aspect-ratio: 4 / 5; height: auto; }
+    .case-image { object-position: left center; }
+    .case-hero-content { flex-direction: column; align-items: start; gap: 1.25rem; padding: 2rem 1.25rem; }
+    .case-kicker { gap: .5rem; font-size: .6rem; letter-spacing: .1em; }
+    h2 { font-size: clamp(2.5rem, 10vw, 4rem); }
+    .case-location { font-size: .85rem; }
+    .case-read { padding-block: .4rem; font-size: .75rem; gap: 1rem; }
+    .case-read svg { width: 1rem; height: 1rem; }
+    .case-story { padding: 3.5rem 1.25rem; }
+  }
+</style>

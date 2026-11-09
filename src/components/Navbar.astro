@@ -1,5 +1,5 @@
 ---
-// Navbar.astro
+const isCustomerCase = Astro.url.pathname.replace(/\/$/, '') === '/kundcase';
 ---
 <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +10,7 @@
         <img src="/logo-dark.svg" alt="SamTech AB" class="h-18 w-auto hidden md:block" />
       </a>
 
-      <div class="hidden md:flex space-x-10">
+      <div class="hidden lg:flex items-center gap-5 xl:gap-8">
         
         <div class="relative group">
           <button class="text-sam-blue font-semibold hover:text-sam-cyan transition-colors py-8 flex items-center gap-1">
@@ -30,6 +30,11 @@
 
         <a href="/losningar" class="text-sam-blue font-semibold hover:text-sam-cyan transition-colors py-8">
           Lösningar
+        </a>
+
+        <!-- Kundcase -->
+        <a href="/kundcase" aria-current={isCustomerCase ? 'page' : undefined} class="text-sam-blue font-semibold hover:text-sam-cyan transition-colors py-8">
+          Kundcase
         </a>
 
         <div class="relative group">
@@ -64,8 +69,8 @@
         
       </div>
 
-      <div class="md:hidden flex items-center">
-        <button id="mobile-menu-btn" class="text-sam-blue hover:text-sam-cyan focus:outline-none p-2 cursor-pointer">
+      <div class="lg:hidden flex items-center">
+        <button id="mobile-menu-btn" type="button" aria-label="Öppna menyn" aria-controls="mobile-menu" aria-expanded="false" class="text-sam-blue hover:text-sam-cyan focus:outline-none p-2 cursor-pointer">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
@@ -75,12 +80,12 @@
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden md:hidden bg-gray-50 border-t border-gray-100">
+  <div id="mobile-menu" class="hidden lg:hidden bg-gray-50 border-t border-gray-100">
     <div class="px-4 pt-2 pb-6 space-y-2">
       <a href="/tjanster" class="block px-3 py-3 rounded-md text-base font-bold text-sam-blue hover:bg-gray-100 hover:text-sam-cyan">Tjänster</a>
-      
       <a href="/losningar" class="block px-3 py-3 rounded-md text-base font-bold text-sam-blue hover:bg-gray-100 hover:text-sam-cyan">Lösningar</a>
-      
+      <!-- Kundcase i mobilen -->
+      <a href="/kundcase" aria-current={isCustomerCase ? 'page' : undefined} class="block px-3 py-3 rounded-md text-base font-bold text-sam-blue hover:bg-gray-100 hover:text-sam-cyan">Kundcase</a>
       <a href="/om-oss" class="block px-3 py-3 rounded-md text-base font-bold text-sam-blue hover:bg-gray-100 hover:text-sam-cyan">Om oss</a>
       <a href="/kontakta-oss" class="block px-3 py-3 rounded-md text-base font-bold text-sam-blue hover:bg-gray-100 hover:text-sam-cyan">Kontakta oss</a>
       <a href="/support" class="block px-3 py-3 rounded-md text-base font-bold text-sam-blue hover:bg-gray-100 hover:text-sam-cyan">Support</a>
@@ -94,7 +99,9 @@
 
   if (btn && menu) {
     btn.addEventListener('click', () => {
-      menu.classList.toggle('hidden');
+      const isOpen = !menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(isOpen));
+      btn.setAttribute('aria-label', isOpen ? 'Stäng menyn' : 'Öppna menyn');
     });
   }
 </script>

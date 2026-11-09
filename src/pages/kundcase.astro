@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CustomerCase from '../components/CustomerCase.astro';
+import { customerCases } from '../data/customerCases';
+---
+
+<Layout
+  title="Kundcase | Steningevik & Harry B James | SamTech AB"
+  description="Mötesteknik på Steningevik och ljud, bild och styrsystem hos Harry B James. Se några av de miljöer där SamTech har installerat AV-teknik."
+  image="/kundcase/steningevik-1280.webp"
+>
+  <h1 class="sr-only">Kundcase – några av våra projekt</h1>
+
+  {customerCases.map((project, index) => (
+    <CustomerCase project={project} index={index} nextProject={customerCases[index + 1]} />
+  ))}
+
+  <section class="case-contact" aria-labelledby="case-contact-title">
+    <div>
+      <p class="case-contact-label">Ert nästa projekt</p>
+      <h2 id="case-contact-title">Vad vill ni att tekniken ska göra?</h2>
+      <p>Berätta om era lokaler och hur de används. Vi hjälper er att hitta en lösning som passar.</p>
+      <a href="/kontakta-oss">Prata med oss <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .case-contact { padding: 4.5rem 1.25rem 5rem; border-top: 1px solid #e5e9ee; background: #f5f7f9; }
+  .case-contact > div { width: min(100%, 76rem); margin-inline: auto; }
+  .case-contact-label { margin-bottom: 1rem; color: #00748f; font-size: .7rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .case-contact h2 { max-width: 40rem; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 600; letter-spacing: -.035em; line-height: 1.15; text-wrap: balance; }
+  .case-contact h2 + p { max-width: 35rem; margin-block: 1.25rem 2rem; color: #536071; font-size: 1.05rem; line-height: 1.75; }
+  .case-contact a { display: inline-flex; align-items: center; gap: 2rem; padding: 1rem 1.5rem; border-radius: 9999px; background: var(--color-sam-blue); color: white; font-size: .9rem; font-weight: 600; transition: background-color .2s; }
+  .case-contact a:hover { background: #00748f; }
+  .case-contact a:focus-visible { outline: 3px solid #00748f; outline-offset: 5px; }
+</style>
